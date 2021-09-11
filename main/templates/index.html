@@ -3,8 +3,10 @@
 {% block titulo %}INDEX USUARIO{% endblock %}
 
 {% block contenido %}
-<h1>Bienvenid@: {{request.session.usuario.name}}</h1>
-<a href="/logout">SALIR DEL SISTEMA</a>
+<div class="cajitas p-4 mt-4 my-auto mx-auto text-center" style="height:600px; border-radius: 5px;">
+    <h1 class="mt-4 pt-4 pb-4 display-1 text-white">WELCOME {{request.session.usuario.name}}!</h1>
+    <a class="display-5 fw-bold" href="/logout">LOG OUT</a>
+</div>
 
 {% endblock %}
 

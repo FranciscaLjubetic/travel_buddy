@@ -41,6 +41,6 @@ User.objects.create(name='ernestina', email = 'ernestina@peres.cl', role = 'user
 User.objects.create(name='pablito', email = 'pablito@peres.cl', role = 'user', password = '123456')
 
 juanito = User.objects.get(name = 'juan peres')
-Travel.objects.create(destination = 'los angeles', description= 'urbe cosmopolita', travel_from= '2021-10-10', travel_to ='2021-10-20', creator = juanito, travellers.set(1))
+Travel.objects.create(destination = 'los angeles', description= 'urbe cosmopolita', travel_from= '2021-10-10', travel_to ='2021-10-20', creator = juanito)
 )
 

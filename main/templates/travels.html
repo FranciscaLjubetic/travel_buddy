@@ -1,8 +1,10 @@
 {% extends "base.html" %}
 {% block titulonavbar %}Hello, {{request.session.user.name}}! {% endblock %}
+{% block sacar%}
+{% endblock %}
 {% block links %}
-        <div class="d-flex">
-            <a class="btn btn-outline-success" href="/logout">Logout</a>
+        <div class="d-flex m-3">
+            <a class="btn btn-outline-primary" href="/logout">Logout</a>
         </div>
         
 {% endblock %}
@@ -15,7 +17,7 @@
         <h2>Your Trip Schedules!</h2>
     </div>
     <div class="row m-3">
-        <div id="tabla" class="p-0 m-1 bg-light" style="border-radius:4px;max-height: 350px; overflow-y: scroll;">
+        <div id="tabla" class="p-0 m-1 bg-light" style="border-radius:4px;max-height: 270px; overflow-y: scroll;">
             <table class="table table-hover">
                 <thead>
                     <tr>
@@ -27,15 +29,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for trip in your_travels %}
+                    {% for trip in your_total_travels %}
                     <tr>
                         <td>{{trip.destination}}</td>
                         <td>{{trip.travel_from}}</td>
                         <td>{{trip.travel_to}}</td>
-                        <td>{{trip.description}}</td>
-                        <td> {% if trip.creator.id == request.session.user.id %}<a class="m-2 deletebtn" type="button" data-toggle="modal" data-target="#myModal" href="/delete/{{trip.id}}">delete 🗑️</a>{% endif%}
-                            {% if trip.travellers.id == request.session.user.id %}<a class="m-2 deletebtn" type="button" data-toggle="modal" data-target="#myModal" href="/cancel/{{trip.id}}">cancel 🙄</a>{% endif%}
-                        </td>
+                        <td class="text-break">{{trip.description}}</td>
+                        <td><a  class="cancelbtn specialbuttons" href="/cancel/{{trip.id}}">🙄</a>{% if trip.creator.id == request.session.user.id %}<a data="dele" class="deletebtn specialbuttons" href="/delete/{{trip.id}}"> 🗑️</a>{% endif%}</td>    
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -47,7 +47,7 @@
         <h2>Other Users´s Travel Plans</h2>
     </div>
     <div class="row m-3">
-        <div id="tabla" class="p-0 m-1 bg-light" style="border-radius:4px;max-height: 350px; overflow-y: scroll;">
+        <div id="tabla" class="p-0 m-1 bg-light" style="border-radius:4px;max-height: 270px; overflow-y: scroll;">
             <table class="table table-hover">
                 <thead>
                     <tr>
@@ -65,13 +65,13 @@
                         <td><a href="/travelsdestination/{{tr.id}}">{{tr.destination}}</a></td>
                         <td>{{tr.travel_from}}</td>
                         <td>{{tr.travel_to}}</td>
-                        <td><a class="m-2" type="button" data-toggle="modal" data-target="#myModal" href="/joining/{{tr.id}}"> Join🧲</a></td>
+                        <td class="ms-4"><a class="specialbuttons ps-4 ms-4" data="join" type="button" href="/joining/{{tr.id}}"> 🧲</a></td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
         </div>
-        <a class="offset-9 text-white col-2 btn bg-primary p-1 mt-2" href="/travelsadd">Add Travel Plan</a>
+        <a class="offset-9 text-warning fs-4 col-3 btn btn-outline-warning p-2 mt-2" href="/travelsadd">Add Travel Plan</a>
     </div>
 
 
@@ -82,15 +82,35 @@
 {% endblock %}
 
 {% block libreria %}
+$(document).ready(function(){
+    $('.deletebtn').on('click',function(evento){
+        evento.preventDefault();
+        const href =$(this).attr('href');
+        console.log(href);
+        const yes= confirm('Are you sure to delete your trip?');
+        if (yes){
+            window.location= href
+        };
+    })
+    
+    $('.cancelbtn').on('click',function(evento){
+        evento.preventDefault();
+        const href =$(this).attr('href');
+        console.log(href);
+        const yes= confirm('Are you sure to cancel your trip?');
+        if (yes){
+            window.location= href
+        };
 
-$('.deletebtn').on('click',function(evento){
-    evento.preventDefault();
-    const href =$(this).attr('href');
-    console.log(href);
-    const yes= confirm('Are you sure to delete your trip?');
-    if (yes){
-        window.location= href
-    };
-})
+    $('.specialbuttons').hover(function(){
+        var myText = $('.specialbuttons').text();
+        alert(myText);
+    })
 
+
+
+
+
+    
+});
 {% endblock %}
