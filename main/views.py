@@ -20,11 +20,13 @@ def travels(request):
     you = User.objects.get(id = you_id)
     your_travels = Travel.objects.filter (travellers = you)
     your_created_travels = Travel.objects.filter (creator = you)
+    your_travels_travellers = Travel.objects.filter(creator = you).exclude(travellers = you)
     other_users_travels = [trip for trip in Travel.objects.all() if trip.id not in your_travels]
     context = {
         'your_travels': your_travels,
         'your_created_travels':your_created_travels,
         'other_users_travels': other_users_travels,
+        'your_travels_travellers': your_travels_travellers,
     }
     return render(request, 'travels.html', context)
 
@@ -40,10 +42,10 @@ def travelsadd(request):
         travel_from =request.POST['travel_from']
         travel_to = request.POST['travel_to']
         creator_id = request.session['user']['id']
-        new_creator = User.objects.get(creator = creator_id)
-        first_participant = User.objects.get(creator = creator_id)
+        new_creator = User.objects.get(id = creator_id)
+        #first_participant = User.objects.get(creator = creator_id)
         
-    #errors = Users.objects.basic_validator(request.POST)
+    errors = User.objects.basic_validator(request.POST)
     
     '''
     if len(errors) > 0:
@@ -53,7 +55,7 @@ def travelsadd(request):
     '''
 
     try:
-        Travel.objects.create(destination = destination, description = description, travel_from = travel_from, travel_to = travel_to, creator = new_creator, travellers = first_participant )
+        Travel.objects.create(destination = destination, description = description, travel_from = travel_from, travel_to = travel_to, creator = new_creator)
     except IntegrityError:
         messages.error(request, 'This travel already exist')
         return redirect('/travelsadd')
@@ -64,8 +66,8 @@ def travelsadd(request):
 
 def destination(request, nam):
     this_travel = Travel.objects.get(id = int(nam))
-    this_travel_users = User.objects.filter(travel = this_travel)
-    
+    this_travel_users = User.objects.filter(travels = this_travel)
+    #other_users_travels = [us for us in Travel.objects.all() if trip.id not in your_travels]
     context = {
         'this_travel': this_travel,
         'this_travel_users': this_travel_users,
@@ -88,9 +90,9 @@ def delete(request, nim):
     del this_travel
     return redirect('/travels')
 
-def joining(request, nam):
+def joining(request, nim):
     this_travel = Travel.objects.get(id = int(nim))
     your_id = request.session['user']['id'] 
-    you= User.objects.get(creator = your_id)
+    you= User.objects.get(id = your_id)
     this_travel.travellers.add(you)
     return redirect('/travels')

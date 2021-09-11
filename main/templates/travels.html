@@ -10,7 +10,7 @@
 {% block titulo %}INDEX USUARIO{% endblock %}
 
 {% block contenido %}
-<div class="container cajitas m-4 p-4 mx-auto text-white">
+<div class="container cajitas p-4 mx-auto text-white">
     <div class="row p-3">
         <h2>Your Trip Schedules!</h2>
     </div>
@@ -33,8 +33,10 @@
                         <td>{{trip.travel_from}}</td>
                         <td>{{trip.travel_to}}</td>
                         <td>{{trip.description}}</td>
-                        <td> {% if app.creator.id == request.session.user.id %}<a class="m-2 deletebtn" type="button" data-toggle="modal" data-target="#myModal" href="/delete/{{trip.id}}">delete 🗑️</a>{% endif%}
-                            {% if app.travellers.id == request.session.user.id %}<a class="m-2 deletebtn" type="button" data-toggle="modal" data-target="#myModal" href="/cancel/{{trip.id}}">cancel 🙄</a>{% endif%}
+                        <td> {% if trip.creator.id == request.session.user.id %}<a class="m-2 deletebtn" type="button" data-toggle="modal" data-target="#myModal" href="/delete/{{trip.id}}">delete 🗑️</a>{% endif%}
+                            {% for guy in your_travels_travellers %}
+                                {% if guy.travellers.id == request.session.user.id %}<a class="m-2 deletebtn" type="button" data-toggle="modal" data-target="#myModal" href="/cancel/{{trip.id}}">cancel 🙄</a>{% endif%}
+                            {% endfor %}
                         </td>
                     </tr>
                     {% endfor %}
@@ -62,7 +64,7 @@
                     {% for tr in other_users_travels %}
                     <tr>
                         <td>{{tr.creator.name}}</td>
-                        <td>{{tr.destination}}</td>
+                        <td><a href="/travelsdestination/{{tr.id}}">{{tr.destination}}</a></td>
                         <td>{{tr.travel_from}}</td>
                         <td>{{tr.travel_to}}</td>
                         <td><a class="m-2" type="button" data-toggle="modal" data-target="#myModal" href="/joining/{{tr.id}}"> Join🧲</a></td>
@@ -87,7 +89,7 @@ $('.deletebtn').on('click',function(evento){
     evento.preventDefault();
     const href =$(this).attr('href');
     console.log(href);
-    const yes= confirm('Are you sure to delete your message?');
+    const yes= confirm('Are you sure to delete your trip?');
     if (yes){
         window.location= href
     };
