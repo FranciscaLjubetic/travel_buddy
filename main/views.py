@@ -19,11 +19,21 @@ def index(request):
 def travels(request):
     your_id = request.session['user']['id']
     you = User.objects.get(id = your_id)
-    your_total_travels = Travel.objects.filter(Q(creator = you) | Q(travellers = you)) 
+    your_travels_where_you_dont_create = Travel.objects.filter(travellers = you).exclude(creator = you)
+    travels_where_you_are_not_creator_neither_traveller = Travel.objects.exclude(creator = you, travellers = you)
+    #your_redneck_trips = [trip for trip in your_travels_where_you_dont_create ]
+    #for trip in your_redeneck_trips:
+        #if trip.travellers.id == request.session.user.id:
+            
+    #redneck_trip_travellers = User.objects.filter(travels = your_redneck_trips)
+    your_total_travels = Travel.objects.filter(Q(creator = you) | Q(travellers = you))
     other_users_travels = [trip for trip in Travel.objects.all() if trip not in your_total_travels]
+    
     context = {
         'other_users_travels': other_users_travels,
         'your_total_travels': your_total_travels,
+        'travels_where_you_are_not_creator_neither_traveller': travels_where_you_are_not_creator_neither_traveller
+        #'your_redneck_trips': your_redneck_trips,
     }
     return render(request, 'travels.html', context)
 
@@ -96,8 +106,8 @@ def cancel(request, nem):
 @login_required
 def delete(request, nim):
     this_travel = Travel.objects.get(id = int(nim))
-    this_travel.delete()
     messages.warning(request, 'Deleted!!')	
+    this_travel.delete()
     return redirect('/travels')
 
 @login_required

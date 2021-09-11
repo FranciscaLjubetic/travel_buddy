@@ -1,11 +1,16 @@
 {% extends "base.html" %}
 
+{% block sacar%}
+<a class="nav-link active" aria-current="page" href="/travels">Home</a>
+{% endblock %}
+
 {% block titulo %}INDEX USUARIO{% endblock %}
 
 {% block contenido %}
-<div class="cajitas p-4 mt-4 my-auto mx-auto text-center" style="height:600px; border-radius: 5px;">
+<div class="cajitas p-4 mt-4 my-auto mx-auto text-center" style="height:500px; border-radius: 5px;">
     <h1 class="mt-4 pt-4 pb-4 display-1 text-white">WELCOME {{request.session.usuario.name}}!</h1>
     <a class="display-5 fw-bold" href="/logout">LOG OUT</a>
+    <p class="display-5 text-warning mt-4"> Book you trip and just have fun</p>
 </div>
 
 {% endblock %}
