@@ -54,7 +54,9 @@ def travelsadd(request):
             return redirect('/travelsadd') 
 
         try:
-            Travel.objects.create(destination = desti, description = description, travel_from = travel_from, travel_to = travel_to, creator = new_creator)
+            this_travel = Travel.objects.create(destination = desti, description = description, travel_from = travel_from, travel_to = travel_to, creator = new_creator)
+            new_creator.travels.add(this_travel)
+            new_creator.save()
         except IntegrityError:
             messages.error(request, 'Please, try with a new trip.')
             return redirect('/travelsadd')
@@ -84,7 +86,8 @@ def cancel(request, nem):
     if you not in this_travel_travellers:
         messages.error(request,"You cannot cancel twice.")
         return redirect('/travels')
-    this_travel.travellers.remove(you)	
+    this_travel.travellers.remove(you)
+    messages.warning(request, 'Canceled!!')	
     #you.travels.remove(this_travel)
     this_travel.save()
     #you.save()
@@ -93,7 +96,8 @@ def cancel(request, nem):
 @login_required
 def delete(request, nim):
     this_travel = Travel.objects.get(id = int(nim))
-    del this_travel
+    this_travel.delete()
+    messages.warning(request, 'Deleted!!')	
     return redirect('/travels')
 
 @login_required

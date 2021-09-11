@@ -35,7 +35,7 @@
                         <td>{{trip.travel_from}}</td>
                         <td>{{trip.travel_to}}</td>
                         <td>{{trip.description}}</td>
-                        <td><a title="cancel :/" class="cancelbtn specialbuttons" href="/cancel/{{trip.id}}">🙄</a>{% if trip.creator.id == request.session.user.id %}<a data="dele" title="delete"class="deletebtn specialbuttons" href="/delete/{{trip.id}}"> 🗑️</a>{% endif%}</td>    
+                        <td><a title="cancel :/" class="cancelbtn specialbuttons" href="/cancel/{{trip.id}}">🙄</a> {% if trip.creator.id == request.session.user.id %}<a data="dele" title="delete"class="deletebtn specialbuttons" href="/delete/{{trip.id}}"> 🗑️</a>{% endif%}</td>    
                     </tr>
                     {% endfor %}
                 </tbody>
