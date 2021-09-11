@@ -34,9 +34,7 @@
                         <td>{{trip.travel_to}}</td>
                         <td>{{trip.description}}</td>
                         <td> {% if trip.creator.id == request.session.user.id %}<a class="m-2 deletebtn" type="button" data-toggle="modal" data-target="#myModal" href="/delete/{{trip.id}}">delete 🗑️</a>{% endif%}
-                            {% for guy in your_travels_travellers %}
-                                {% if guy.travellers.id == request.session.user.id %}<a class="m-2 deletebtn" type="button" data-toggle="modal" data-target="#myModal" href="/cancel/{{trip.id}}">cancel 🙄</a>{% endif%}
-                            {% endfor %}
+                            {% if trip.travellers.id == request.session.user.id %}<a class="m-2 deletebtn" type="button" data-toggle="modal" data-target="#myModal" href="/cancel/{{trip.id}}">cancel 🙄</a>{% endif%}
                         </td>
                     </tr>
                     {% endfor %}
