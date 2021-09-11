@@ -20,7 +20,7 @@ def travels(request):
     your_id = request.session['user']['id']
     you = User.objects.get(id = your_id)
     your_travels_where_you_dont_create = Travel.objects.filter(travellers = you).exclude(creator = you)
-    travels_where_you_are_not_creator_neither_traveller = Travel.objects.exclude(creator = you, travellers = you)
+    travels_where_you_are_not_creator_neither_traveller = Travel.objects.exclude(creator = you).exclude(travellers = you)
     #your_redneck_trips = [trip for trip in your_travels_where_you_dont_create ]
     #for trip in your_redeneck_trips:
         #if trip.travellers.id == request.session.user.id:
