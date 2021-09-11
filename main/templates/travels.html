@@ -35,7 +35,7 @@
                         <td>{{trip.travel_from}}</td>
                         <td>{{trip.travel_to}}</td>
                         <td class="text-break">{{trip.description}}</td>
-                        <td><a  class="cancelbtn specialbuttons" href="/cancel/{{trip.id}}">🙄</a>{% if trip.creator.id == request.session.user.id %}<a data="dele" class="deletebtn specialbuttons" href="/delete/{{trip.id}}"> 🗑️</a>{% endif%}</td>    
+                        <td><a title="cancel :/" class="cancelbtn specialbuttons" href="/cancel/{{trip.id}}">🙄</a>{% if trip.creator.id == request.session.user.id %}<a data="dele" title="delete"class="deletebtn specialbuttons" href="/delete/{{trip.id}}"> 🗑️</a>{% endif%}</td>    
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -65,7 +65,7 @@
                         <td><a href="/travelsdestination/{{tr.id}}">{{tr.destination}}</a></td>
                         <td>{{tr.travel_from}}</td>
                         <td>{{tr.travel_to}}</td>
-                        <td class="ms-4"><a class="specialbuttons ps-4 ms-4" data="join" type="button" href="/joining/{{tr.id}}"> 🧲</a></td>
+                        <td class="ms-4"><a title="Join!!!"class="specialbuttons ps-4 ms-4" data="join" type="button" href="/joining/{{tr.id}}"> 🧲</a></td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -82,7 +82,7 @@
 {% endblock %}
 
 {% block libreria %}
-$(document).ready(function(){
+
     $('.deletebtn').on('click',function(evento){
         evento.preventDefault();
         const href =$(this).attr('href');
@@ -101,16 +101,12 @@ $(document).ready(function(){
         if (yes){
             window.location= href
         };
-
-    $('.specialbuttons').hover(function(){
-        var myText = $('.specialbuttons').text();
-        alert(myText);
-    })
+    
 
 
 
 
 
     
-});
+
 {% endblock %}
