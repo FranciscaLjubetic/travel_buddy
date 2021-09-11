@@ -13,10 +13,10 @@
 
 {% block contenido %}
 <div class="container cajitas p-4 mx-auto text-white">
-    <div class="row ps-4 mt-2">
+    <div class="row ps-4 mt-2 ps-xs-2 ps-md-2 ">
         <h3>Your Trip Schedules!</h3>
     </div>
-    <div class="row ms-3 mt-0 me-3">
+    <div class="row ms-3 mt-0 me-3 ms-xs-0 ms-sm-1 ms-md-2">
         <div id="tabla" class="p-0 m-1 bg-light" style="border-radius:4px;max-height: 180px; overflow-y: scroll;">
             <table class="table table-hover">
                 <thead>
@@ -34,7 +34,7 @@
                         <td>{{trip.destination}}</td>
                         <td>{{trip.travel_from}}</td>
                         <td>{{trip.travel_to}}</td>
-                        <td class="text-break">{{trip.description}}</td>
+                        <td>{{trip.description}}</td>
                         <td><a title="cancel :/" class="cancelbtn specialbuttons" href="/cancel/{{trip.id}}">🙄</a>{% if trip.creator.id == request.session.user.id %}<a data="dele" title="delete"class="deletebtn specialbuttons" href="/delete/{{trip.id}}"> 🗑️</a>{% endif%}</td>    
                     </tr>
                     {% endfor %}
@@ -43,10 +43,10 @@
         </div>
     </div>
 
-    <div class="row ps-4 mt-4">
+    <div class="row ps-4 mt-4 ps-xs-2 ps-md-2">
         <h3>Other Users´s Travel Plans</h3>
     </div>
-    <div class="row ms-3 mt-0 me-3">
+    <div class="row ms-3 mt-0 me-3 ms-xs-0 ms-sm-1 ms-md-2">
         <div id="tabla" class="p-0 m-1 bg-light" style="border-radius:4px;max-height: 180px; overflow-y: scroll;">
             <table class="table table-hover">
                 <thead>
@@ -71,7 +71,7 @@
                 </tbody>
             </table>
         </div>
-        <a class="offset-9 text-warning fs-7 col-2 btn btn-outline-warning p-2 mt-2" href="/travelsadd">Add Travel Plan</a>
+        <a class="text-white fw-bold fs-7 btn btn-outline-warning p-2 mt-2 ms-1" href="/travelsadd">Add Travel Plan</a>
     </div>
 
 

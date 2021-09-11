@@ -103,7 +103,6 @@ def joining(request, nim):
     you= User.objects.get(id = your_id)
     #si you ya esta como traveller de este viaje, tirarle error
     this_travel_travellers = User.objects.filter(travels = this_travel)
-    
     for guy in this_travel_travellers:
         if guy.id == your_id:
             messages.error(request,"You are already in.")

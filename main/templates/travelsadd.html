@@ -18,14 +18,14 @@
 <form id="form" class="offset-1 ps-4 col-10 cajitas text-white" method="POST" action="/travelsadd">
     {% csrf_token %}
     <div class="row p-2 ">
-        <div class="col-6 m-2">
+        <div class="m-2 col-md-6 col-sm-10 col-xs-12">
         <h4 class="p-0 mb-4 display-5 text-white mt-3">Add a Trip</h4>
             <p class="mb-0">Destination</p>
             <input name="destination" type="text" class="validate form-control input-index input-index" required>
         </div>
     </div>
     <div class="row ps-2">
-        <div class="col-6 ms-2 mt-0">
+        <div class="ms-2 mt-0 col-md-6 col-sm-10 col-xs-12">
         <p class="mb-0">Description</p>
             <textarea name="description" cols="55" rows="5" class="form-control input-index mx-auto" required>
             </textarea>
@@ -33,7 +33,7 @@
     </div>
     
     <div class="row ps-2">
-        <div class="col-6 ms-2 mt-0">
+        <div class="ms-2 mt-0 col-md-6 col-sm-10 col-xs-12">
             <p class="mb-0">Travel Date From</p>
             <input type="date" id="start" name="travel_from" class="form-control input-index mx-auto"
             value="2021-09-12"
@@ -42,7 +42,7 @@
     </div>
 
     <div class="row ps-2">
-        <div class="col-6 ms-2 mt-0">
+        <div class="ms-2 mt-0 col-md-6 col-sm-10 col-xs-12">
             <p class="mb-0">Travel Date To</p>
             <input type="date" id="start" name="travel_to" class="form-control input-index mx-auto"
             value="2021-09-17"
@@ -51,8 +51,8 @@
     </div>
 
     <div class="row p-2">
-        <div class="col-6 ms-2 mt-1 mb-4">
-            <button type="submit" class="col-3 fw-bold btn btn-outline-warning text-white " required>Create</button>
+        <div class="ms-2 mt-1 mb-4 ms-2 col-md-6 col-sm-10 col-xs-12">
+            <button type="submit" class="fw-bold btn btn-outline-warning text-white " required>Create</button>
         </div>
     </div>
 </form>
