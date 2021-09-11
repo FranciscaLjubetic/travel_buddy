@@ -1,0 +1,46 @@
+class User(models.Model):
+    CHOICES = (
+        ("user", 'User'),
+        ("admin", 'Admin')
+    )
+    name = models.CharField(max_length=100)
+    email = models.EmailField(max_length=255, unique=True)
+    role = models.CharField(max_length=255, choices=CHOICES, default='user')  
+    password = models.CharField(max_length=70)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    objects = UserManager()
+
+    def __str__(self):
+        return f"{self.name}"
+
+    def __repr__(self):
+        return f"{self.name}"
+    
+    
+class Travel(models.Model):
+    destination= models.CharField(max_length=100)
+    description = models.TextField()
+    travel_from = models.DateField()
+    travel_to = models.DateField()
+    creator = models.ForeignKey(User, related_name="created_travels", on_delete = models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    travellers = models.ManyToManyField(User, related_name='travels')
+    objects = travelmanager()
+
+
+from main.models import User, Travel
+name = models.CharField(max_length=100)
+    email = models.EmailField(max_length=255, unique=True)
+    role = models.CharField(max_length=255, choices=CHOICES, default='user')  
+    password = models.CharField(max_length=70)
+
+User.objects.create(name='juan peres', email = 'juan@peres.cl', role = 'user', password = '369258')
+User.objects.create(name='ernestina', email = 'ernestina@peres.cl', role = 'user', password = '456789')
+User.objects.create(name='pablito', email = 'pablito@peres.cl', role = 'user', password = '123456')
+
+juanito = User.objects.get(name = 'juan peres')
+Travel.objects.create(destination = 'los angeles', description= 'urbe cosmopolita', travel_from= '2021-10-10', travel_to ='2021-10-20', creator = juanito, travellers.set(1))
+)
+

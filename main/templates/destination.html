@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block titulonavbar %}  {% endblock %}
+{% block links %}
+        <div class="d-flex">
+            <a class="btn btn-outline-success" href="/logout">Logout</a>
+        </div>
+        <div class="d-flex">
+            <a class="btn btn-outline-success" href="/travels">Home</a>
+        </div>
+{% endblock %}
+
+{% block titulo %}DESTINATION{% endblock %}
+
+{% block contenido %}
+<div class="container cajita text-white p-2">
+    <div class="row p-2">
+        <div class="offset-1 col-9">
+            <h4 class="p-0 mb-4 display-5 text-white mt-3">Destination: <span class="fw-bolder">{{this_travel.destination}}</span></h4>
+            
+            <h6 class="fw-bolder"> Planned By:{{{this_travel.creator}} </h6>
+            <h6>Release: </h6>
+        </div>
+    </div>
+    <div class="row p-2">
+        <div class="col-6 offset-1">
+            <h6>Description:</h6>
+            <p class="bg-white border border-muted text-white p-2" style="min-height:150px; min-width:200px;">{{this_travel.description}}</p>
+        </div>
+    </div>
+    <div class="row p-2">
+        <div class="col-6 offset-1">
+            <h6>Other users's joining the trip:  </h6>
+            <ul class= "bg-white">
+                {% for guy in this_travel_users %}
+                <li class="bg-white border border-muted text-white p-2" style="min-height:150px; min-width:200px;">{{this_travel_users.name}}</li>
+                {% endfor%}
+            </ul>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block libreria %}
+{% endblock %}
