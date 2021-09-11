@@ -13,11 +13,11 @@
 
 {% block contenido %}
 <div class="container cajitas p-4 mx-auto text-white">
-    <div class="row p-3">
-        <h2>Your Trip Schedules!</h2>
+    <div class="row ps-4 mt-2">
+        <h3>Your Trip Schedules!</h3>
     </div>
-    <div class="row m-3">
-        <div id="tabla" class="p-0 m-1 bg-light" style="border-radius:4px;max-height: 270px; overflow-y: scroll;">
+    <div class="row ms-3 mt-0 me-3">
+        <div id="tabla" class="p-0 m-1 bg-light" style="border-radius:4px;max-height: 180px; overflow-y: scroll;">
             <table class="table table-hover">
                 <thead>
                     <tr>
@@ -43,11 +43,11 @@
         </div>
     </div>
 
-    <div class="row p-3">
-        <h2>Other Users´s Travel Plans</h2>
+    <div class="row ps-4 mt-4">
+        <h3>Other Users´s Travel Plans</h3>
     </div>
-    <div class="row m-3">
-        <div id="tabla" class="p-0 m-1 bg-light" style="border-radius:4px;max-height: 270px; overflow-y: scroll;">
+    <div class="row ms-3 mt-0 me-3">
+        <div id="tabla" class="p-0 m-1 bg-light" style="border-radius:4px;max-height: 180px; overflow-y: scroll;">
             <table class="table table-hover">
                 <thead>
                     <tr>
@@ -71,7 +71,7 @@
                 </tbody>
             </table>
         </div>
-        <a class="offset-9 text-warning fs-4 col-3 btn btn-outline-warning p-2 mt-2" href="/travelsadd">Add Travel Plan</a>
+        <a class="offset-9 text-warning fs-7 col-2 btn btn-outline-warning p-2 mt-2" href="/travelsadd">Add Travel Plan</a>
     </div>
 
 
@@ -101,7 +101,7 @@
         if (yes){
             window.location= href
         };
-    
+    })
 
 
 
