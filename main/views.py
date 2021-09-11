@@ -20,7 +20,7 @@ def travels(request):
     your_id = request.session['user']['id']
     you = User.objects.get(id = your_id)
     your_total_travels = Travel.objects.filter(Q(creator = you) | Q(travellers = you)) 
-    other_users_travels = [trip for trip in Travel.objects.all() if trip.id not in your_total_travels]
+    other_users_travels = [trip for trip in Travel.objects.all() if trip not in your_total_travels]
     context = {
         'other_users_travels': other_users_travels,
         'your_total_travels': your_total_travels,
@@ -56,7 +56,7 @@ def travelsadd(request):
         try:
             Travel.objects.create(destination = desti, description = description, travel_from = travel_from, travel_to = travel_to, creator = new_creator)
         except IntegrityError:
-            messages.error(request, 'This travel already exist')
+            messages.error(request, 'Please, try with a new trip.')
             return redirect('/travelsadd')
 
     messages.success(request, 'Travel successfully created')
