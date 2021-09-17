@@ -19,7 +19,7 @@ def index(request):
 def travels(request):
     your_id = request.session['user']['id']
     you = User.objects.get(id = your_id)
-    your_travels_where_you_dont_create = Travel.objects.filter(travellers = you).exclude(creator = you)
+    your_travels_where_you_dont_create = Travel.objects.exclude(travellers = you)
     travels_where_you_are_not_creator_neither_traveller = Travel.objects.exclude(creator = you).exclude(travellers = you)
     #your_redneck_trips = [trip for trip in your_travels_where_you_dont_create ]
     #for trip in your_redeneck_trips:
@@ -27,10 +27,10 @@ def travels(request):
             
     #redneck_trip_travellers = User.objects.filter(travels = your_redneck_trips)
     your_total_travels = Travel.objects.filter(Q(creator = you) | Q(travellers = you))
-    other_users_travels = [trip for trip in Travel.objects.all() if trip not in your_total_travels]
+    other_users_travels = [trip for trip in Travel.objects.all() if trip not in your_travels_where_you_dont_create]
     
     context = {
-        'other_users_travels': other_users_travels,
+        'other_users_travels': your_travels_where_you_dont_create,
         'your_total_travels': your_total_travels,
         'travels_where_you_are_not_creator_neither_traveller': travels_where_you_are_not_creator_neither_traveller
         #'your_redneck_trips': your_redneck_trips,
@@ -80,7 +80,9 @@ def destination(request, nam):
     your_id = request.session['user']['id']
     you = User.objects.get(id = your_id)
     this_travel = Travel.objects.get(id = int(nam))
-    this_travel_travellers_without_you = User.objects.filter(travels = this_travel).exclude(id = your_id)
+    owner_id =  this_travel.creator.id
+    owner = User.objects.get (id = owner_id )
+    this_travel_travellers_without_you = User.objects.filter(travels = this_travel).exclude(id = your_id).exclude(created_travels = this_travel)
     context = {
         'this_travel': this_travel,
         'this_travel_travellers_without_you': this_travel_travellers_without_you,

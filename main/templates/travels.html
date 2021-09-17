@@ -60,7 +60,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for tr in travels_where_you_are_not_creator_neither_traveller %}
+                    {% for tr in other_users_travels %}
                     <tr>
                         <td>{{tr.creator.name}}</td>
                         <td><a href="/travelsdestination/{{tr.id}}">{{tr.destination}}</a></td>

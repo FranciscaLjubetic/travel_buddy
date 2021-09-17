@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +26,10 @@ SECRET_KEY = 'django-insecure-oxso!d)0gaenbtbr0=+mekzl81ner_57gsk9r*2zlp-91@4mou
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['']
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+if env =='cloud':
+    ALLOWED_HOSTS = ['143.198.147.129']
 
 
 # Application definition
@@ -77,7 +81,7 @@ WSGI_APPLICATION = 'travel_buddy.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': str(BASE_DIR / 'db.sqlite3'),
     }
 }
 
